@@ -23,4 +23,11 @@ public class GreetingsController {
     public String greetingText(@PathVariable String name) {
         return "End point Rest API " + name + "!";
     }
+   
+    @RequestMapping(value = "/olamundo/{name}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public String retornaOlaMundo(@PathVariable String name) {
+        return "Ola mundo " + name + "!";
+    }
+  
 }
