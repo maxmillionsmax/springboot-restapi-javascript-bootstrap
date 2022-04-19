@@ -1,11 +1,16 @@
 package br.com.springboot.curso_jdev_treinamento.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,8 +37,7 @@ public class GreetingsController {
         return "End point Rest API " + name + "!";
     }
    
-    @SuppressWarnings("unchecked")
-	@RequestMapping(value = "/olamundo/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/olamundo/{name}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String retornaOlaMundo(@PathVariable String name) {
     	
@@ -44,5 +48,15 @@ public class GreetingsController {
     	
         return "Ola mundo " + name + "!";
     }
+    
+    @GetMapping(value = "listatodos")/*metodo de api*/
+    @ResponseBody
+    public ResponseEntity<List<Usuario>> listaUsuarios(){
+    	
+    	List<Usuario> usuarios = usuarioRepository.findAll();
+    	
+        return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
+    }
+    
   
 }
