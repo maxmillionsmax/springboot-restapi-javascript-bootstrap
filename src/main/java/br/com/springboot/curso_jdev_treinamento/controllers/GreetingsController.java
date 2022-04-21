@@ -106,7 +106,7 @@ public class GreetingsController {
     @ResponseBody/*descrição da resposta*/
     public ResponseEntity<List<Usuario>> buscaPorNome(@RequestParam(name = "name") String name){/*recebe dados para salvar*/
     	
-        List<Usuario> usuario = usuarioRepository.buscarPorNome(name.trim());
+        List<Usuario> usuario = usuarioRepository.buscarPorNome(name.trim().toUpperCase());
     	
         return new ResponseEntity<List<Usuario>>(usuario, HttpStatus.OK);
     }  
