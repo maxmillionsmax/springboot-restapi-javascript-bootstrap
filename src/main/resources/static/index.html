@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>CRUD by Maximiliano</title>
  <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -27,6 +27,7 @@
 	</form>
 	
 	<button type="button" class="btn btn-primary" onclick="salvarUsuario()">Salvar</button>
+	<button type="button" class="btn btn-secondary" onclick="document.getElementById('formCadastroUser').reset()">Novo</button>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -38,8 +39,22 @@
 			var nome = $("#nome").val();
 			var idade = $("#idade").val();
 			
-			alert(nome + " - " + id + " - "+ idade);
-		}
+			$.ajax({
+				method:"POST",
+				url:"salvar",
+				data: JSON.stringify({id : id, nome : nome, idade : idade}),
+				contentType:"application/json; charset=utf-8",
+				success: function (response){
+					
+					$("#id").val(response.id);
+					alert("Salvo!")
+				}
+				
+			}).fail(function (xhr, status, errorThrow){
+				alert("Erro ao salvar usuario: "+xhr.responseText);
+			});
+			
+			}
 	</script>
 
 </body>
